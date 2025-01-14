@@ -8,6 +8,11 @@ import (
 	"kubevirt.io/csi-driver/pkg/util"
 )
 
+const (
+	WellKnownRegionTopologyKey = "topology.kubernetes.io/region"
+	WellKnownZoneTopologyKey   = "topology.kubernetes.io/zone"
+)
+
 var (
 	// VendorVersion is the vendor version set by ldflags at build time
 	VendorVersion = "0.2.0"
@@ -56,8 +61,9 @@ func (d *KubevirtCSIDriver) WithControllerService(
 // WithNodeService creates a NodeService targeting the provided node.
 func (d *KubevirtCSIDriver) WithNodeService(
 	nodeID string,
+	allowedTopologies map[string]string,
 ) *KubevirtCSIDriver {
-	d.NodeService = NewNodeService(nodeID)
+	d.NodeService = NewNodeService(nodeID, allowedTopologies)
 	return d
 }
 

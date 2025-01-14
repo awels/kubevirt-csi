@@ -156,9 +156,15 @@ func configureNodeService(cfg *config, driver *service.KubevirtCSIDriver) (*serv
 	}
 	klog.Infof("Node name: %q, Node ID: %q", cfg.nodeName, nodeID)
 
+	allowedTopologies := map[string]string{
+		service.WellKnownZoneTopologyKey:   node.Labels[service.WellKnownZoneTopologyKey],
+		service.WellKnownRegionTopologyKey: node.Labels[service.WellKnownRegionTopologyKey],
+	}
+
 	return driver.
 		WithNodeService(
 			nodeID,
+			allowedTopologies,
 		).
 		WithIdentityService(
 			tenantClientset,

@@ -71,6 +71,7 @@ var _ = ginkgo.BeforeSuite(func() {
 		).
 		WithNodeService(
 			getKey(infraClusterNamespace, nodeID),
+			nil,
 		)
 	gomega.Expect(err).ToNot(gomega.HaveOccurred())
 
