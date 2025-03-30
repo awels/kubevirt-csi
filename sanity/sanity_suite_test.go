@@ -71,7 +71,10 @@ var _ = ginkgo.BeforeSuite(func() {
 		).
 		WithNodeService(
 			getKey(infraClusterNamespace, nodeID),
-			nil,
+			map[string]string{
+				service.WellKnownRegionTopologyKey: "eu-central-1",
+				service.WellKnownZoneTopologyKey:   "eu-central-1a",
+			},
 		)
 	gomega.Expect(err).ToNot(gomega.HaveOccurred())
 
