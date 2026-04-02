@@ -153,8 +153,8 @@ func (t *tenantClusterAccess) waitForConnection() {
 // handleConnection copies data between the local connection and the stream to
 // the remote server. It closes the local and remote connections when done.
 func (t *tenantClusterAccess) handleConnection(local, remote io.ReadWriteCloser) {
-	defer local.Close()
-	defer remote.Close()
+	defer func() { _ = local.Close() }()
+	defer func() { _ = remote.Close() }()
 	errs := make(chan error, 2)
 	go func() {
 		_, err := io.Copy(remote, local)

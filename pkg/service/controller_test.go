@@ -1089,7 +1089,7 @@ func (c *ControllerClientMock) AddVolumeToVM(_ context.Context, namespace string
 	Expect(expectedVMName).To(Equal(vmName))
 	Expect(testVolumeName).To(Equal(addVolumeOptions.Name))
 	Expect(testVolumeName).To(Equal(addVolumeOptions.VolumeSource.DataVolume.Name))
-	Expect(getBusType()).To(Equal(addVolumeOptions.Disk.DiskDevice.Disk.Bus))
+	Expect(getBusType()).To(Equal(addVolumeOptions.Disk.Disk.Bus))
 	Expect(testDataVolumeUID).To(Equal(addVolumeOptions.Disk.Serial))
 
 	return nil
